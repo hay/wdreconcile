@@ -8,7 +8,9 @@ Right now you need to clone or download this repo.
 
 In the future i'll make a `pyproject.toml` file for easy installation, for now you need these two dependencies:
 
-  pip install dataknead requests
+```bash
+pip install dataknead requests
+```
 
 ## Usage
 
@@ -31,10 +33,11 @@ wdreconcile.py -i museums.txt -o museums.csv -rt wdsearch -l en
 This will give you back a filed called `museums.csv` that looks like this:
 
 ```csv
-query,id,label,description,status
-Metropolitan Museum of Art,Q160236,Metropolitan Museum of Art,"major art museum in New York City, United States",ok
-Centraal Museum,Q260913,Centraal Museum,"museum in Utrecht, Netherlands",ok
-Jewish Historical Museum,Q702726,Jewish Historical Museum,"Jewish history, culture, and religion museum in Amsterdam, Netherlands",ok
+|query|id|label|description|status|
+|-----|--|-----|-----------|------|
+|Metropolitan Museum of Art|Q160236|Metropolitan Museum of Art|"major art museum in New York City| United States"|ok|
+|Centraal Museum|Q260913|Centraal Museum|"museum in Utrecht| Netherlands"|ok|
+|Jewish Historical Museum|Q702726|Jewish Historical Museum|"Jewish history| culture| and religion museum in Amsterdam| Netherlands"|ok|
 ```
 
 Note that the `output format` (`-o`) can have any extension that [dataknead](https://github.com/hay/dataknead) supports, so to use `json`, just run the command like this:
