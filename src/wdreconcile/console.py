@@ -1,7 +1,7 @@
-#! /usr/bin/env python3
+from . import __version__
+from .reconciler import Reconciler
 from argparse import ArgumentParser
 from dataknead import Knead
-from reconciler import Reconciler
 import logging
 import requests
 import sys
@@ -52,7 +52,7 @@ def main(args):
     reconciler.reconcile()
     reconciler.save()
 
-if __name__ == "__main__":
+def console():
     parser = get_parser()
 
     if len(sys.argv) == 1:

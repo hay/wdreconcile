@@ -1,4 +1,2 @@
 __pycache__
-museums.csv
-museums.json
-museum-matched.csv
+*.egg-info

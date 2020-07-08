@@ -1,4 +1,4 @@
-# wdreconcile
+# wdreconcile.py
 > Map strings to Wikidata QID's using various methods
 
 This is a **work-in-progress** Python command-line tool to align strings to Wikidata items (QID's).

@@ -1,8 +1,8 @@
+from .openrefine import OpenrefineReconciler
+from .wdentity import WikidataEntityReconciler
+from .wdsearch import WikidataSearchReconciler
 from dataknead import Knead
-from openrefine import OpenrefineReconciler
 from pathlib import Path
-from wdentity import WikidataEntityReconciler
-from wdsearch import WikidataSearchReconciler
 import logging
 
 log = logging.getLogger(__name__)

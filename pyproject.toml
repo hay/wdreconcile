@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "wdreconcile"
+version = "0.1.0"
+description = "Map strings to Wikidata QID's using various methods"
+authors = ["Hay Kranen <haykranen.nl>"]
+
+[tool.poetry.dependencies]
+python = "^3.6"
+requests = "^2.24.0"
+dataknead = "^0.3.1"
+
+[tool.poetry.scripts]
+wdreconcile = "wdreconcile.console:console"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"
