@@ -18,14 +18,17 @@ def get_parser():
     )
 
     parser.add_argument("-o", "--output", required = True,
-        help = "Output file (should be a CSV"
+        help = "Output file"
     )
 
-    parser.add_argument("-t", "--type", required = True,
-        help = "Items should be an instance of this type"
+    parser.add_argument("-rt", "--reconciler_type", required = True,
+        choices = ("openrefine", "wdentity", "wdsearch"),
+        help = "Reconciler type"
     )
 
-    parser.add_argument("--test-data", action = "store_true")
+    parser.add_argument("-l", "--language", required = True,
+        help = "ISO code of the language you're using to reconcile"
+    )
 
     parser.add_argument("-v", "--verbose", action = "store_true",
         help = "Display debug information"
@@ -39,32 +42,23 @@ def main(args):
         log.debug("Verbose logging enabled")
         log.debug(f"Arguments given: {args}")
 
+    reconciler = Reconciler(
+        in_file = args.input,
+        out_file = args.output,
+        language = args.language,
+        reconciler_type = args.reconciler_type
+    )
+
+    reconciler.reconcile()
+    reconciler.save()
+
+if __name__ == "__main__":
+    parser = get_parser()
+
     if len(sys.argv) == 1:
         # No arguments, just display help
         parser.print_help()
         sys.exit()
 
-    if ".csv" not in args.output:
-        raise Exception("Output should have a .csv extension")
-
-    reconciler = Reconciler(
-        in_file = args.input,
-        type_qid = args.type
-    )
-
-    if args.test_data:
-        test_data = Knead("./test.json").data()
-        data = reconciler.reconcile(test_data)
-    else:
-        data = reconciler.reconcile()
-
-    Knead(data).write(args.output)
-
-if __name__ == "__main__":
-    try:
-        parser = get_parser()
-        args = parser.parse_args()
-        main(args)
-    except Exception as e:
-        # User-caused error, just print and don't show traceback
-        error(e)
+    args = parser.parse_args()
+    main(args)
