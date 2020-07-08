@@ -4,13 +4,13 @@
 This is a **work-in-progress** Python command-line tool to align strings to Wikidata items (QID's).
 
 ## Install
-Right now you need to clone or download this repo.
-
-In the future i'll make a `pyproject.toml` file for easy installation, for now you need these two dependencies:
+Clone this repo and use [poetry](https://python-poetry.org/) to install dependencies:
 
 ```bash
-pip install dataknead requests
+poetry install
 ```
+
+Then run `poetry run wdreconcile`.
 
 ## Usage
 
@@ -24,10 +24,10 @@ Centraal Museum
 Jewish Historical Museum
 ```
 
-Currently the `wdsearch` reconciler is the most reliable, it gives you back the very first result from the the `wbsearchentities` Wikidata API. This is the same as what you get when using the autocomplete field on the website. You **need** to specify a language in ISO-code form (e.g. `en`)
+By default `wbsearch.py` uses the `wdsearch` reconciler. By default it gives you back the very first result from the the `wbsearchentities` Wikidata API. This is the same as what you get when using the autocomplete field on the website. You **need** to specify a language in ISO-code form (e.g. `en`)
 
 ```bash
-wdreconcile.py -i museums.txt -o museums.csv -rt wdsearch -l en
+poetry run wdreconcile -i museums.txt -o museums.csv -l en
 ```
 
 This will give you back a filed called `museums.csv` that looks like this:
@@ -40,26 +40,36 @@ This will give you back a filed called `museums.csv` that looks like this:
 
 Note that the `output format` (`-o`) can have any extension that [dataknead](https://github.com/hay/dataknead) supports, so to use `json`, just run the command like this:
 ```bash
-wdreconcile.py -i museums.txt -o museums.json -rt wdsearch -l en
+poetry run wdreconcile -i museums.txt -o museums.json -l en
+```
+
+If you want more than the first result you can use the `-li` (limit) parameter to change the number of results.
+
+```bash
+poetry run wdreconcile -i museums.txt -o museums-3.csv -l en -li 3
+```
+
+And you can also use the [Wikidata reconciler as used by OpenRefine](https://wdreconcile.toolforge.org/), using the `-rt` (reconciler type) parameter:
+
+```bash
+poetry run wdreconcile -i museums.txt -o museum-openrefine.csv -rt openrefine -l en
 ```
 
 ### Lookup labels/descriptions by qid
 Another use of `wdreconcile` is to map back QID's to labels and descriptions using the `wdentity` reconciler. This will also check if the item exists and might be handy for batch checking of existing QID's.
 
 ```bash
-wdreconcile.py -i museum-qids.csv -o museum-matched.csv -rt wdentity -l en
+poetry run wdreconcile -i museum-qids.csv -o museum-matched.csv -rt wdentity -l en
 ```
-
-### Using the `openrefine` reconciler type
-This still work in progress and might not work, but you can try it using `-rt openrefine`.
 
 ## Troubleshooting
 If you add the `-v` (verbose) flag `wdreconcile` will give much more debug information.
 
 ## All options
 ```bash
-usage: wdreconcile.py [-h] -i INPUT -o OUTPUT -rt
-                      {openrefine,wdentity,wdsearch} -l LANGUAGE [-v]
+usage: wdreconcile [-h] -i INPUT -o OUTPUT
+                   [-rt {openrefine,wdentity,wdsearch}] -l LANGUAGE
+                   [-li LIMIT] [-v]
 
 Reconcile a list of strings to Wikidata items
 
@@ -73,7 +83,10 @@ optional arguments:
                         Reconciler type
   -l LANGUAGE, --language LANGUAGE
                         ISO code of the language you're using to reconcile
+  -li LIMIT, --limit LIMIT
+                        How many results to return
   -v, --verbose         Display debug information
+
  ```
 
 ## License

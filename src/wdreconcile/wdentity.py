@@ -7,6 +7,7 @@ log = logging.getLogger(__name__)
 class WikidataEntityReconciler:
     def __init__(self, language):
         self.language = language
+        self.FIELDNAMES = ["query", "id", "label", "description", "status"]
 
     def entity(self, q):
         log.debug(f"Searching for '{q}'")

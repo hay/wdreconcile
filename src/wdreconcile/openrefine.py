@@ -15,9 +15,12 @@ log = logging.getLogger(__name__)
 """
 
 class OpenrefineReconciler:
-    def __init__(self, language):
+    def __init__(self, language, limit = None):
         self.language = language
         self.endpoint = f"https://wdreconcile.toolforge.org/{self.language}/api"
+        self.limit = limit
+        self.FIELDNAMES = ["query", "qid", "score", "name", "match"]
+        log.debug(f"Setting limit to {self.limit}")
 
     def construct_query(self, data):
         query = {}
@@ -27,6 +30,9 @@ class OpenrefineReconciler:
             query[index] = {
                 "query" : line
             }
+
+            if self.limit:
+                query[index]["limit"] = self.limit
 
         return query
 
@@ -45,10 +51,7 @@ class OpenrefineReconciler:
             return req.json()
 
     def parse_results(self, results):
-        # Define fieldnames first
-        ret = [
-            ["query", "qid", "score", "name", "match"]
-        ]
+        ret = []
 
         for index in results:
             query = self.query[int(index)]["query"]

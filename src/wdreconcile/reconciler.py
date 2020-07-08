@@ -8,16 +8,17 @@ import logging
 log = logging.getLogger(__name__)
 
 class Reconciler:
-    def __init__(self, in_file, out_file, language, reconciler_type):
+    def __init__(self, in_file, out_file, language, reconciler_type, limit):
         self.in_file = in_file
         self.out_file = out_file
         self.language = language
         self.results = []
+        self.limit = limit
 
         if reconciler_type == "openrefine":
-            self.reconciler = OpenrefineReconciler(self.language)
+            self.reconciler = OpenrefineReconciler(self.language, self.limit)
         elif reconciler_type == "wdsearch":
-            self.reconciler = WikidataSearchReconciler(self.language)
+            self.reconciler = WikidataSearchReconciler(self.language, self.limit)
         elif reconciler_type == "wdentity":
             self.reconciler = WikidataEntityReconciler(self.language)
 
@@ -31,7 +32,7 @@ class Reconciler:
         if Path(self.out_file).suffix == ".csv":
             Knead(self.results).write(
                 self.out_file,
-                fieldnames = ["query", "id", "label", "description", "status"]
+                fieldnames = self.reconciler.FIELDNAMES
             )
         else:
             Knead(self.results).write(self.out_file)

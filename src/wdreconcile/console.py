@@ -21,13 +21,17 @@ def get_parser():
         help = "Output file"
     )
 
-    parser.add_argument("-rt", "--reconciler_type", required = True,
+    parser.add_argument("-rt", "--reconciler_type", default = "wdsearch",
         choices = ("openrefine", "wdentity", "wdsearch"),
         help = "Reconciler type"
     )
 
     parser.add_argument("-l", "--language", required = True,
         help = "ISO code of the language you're using to reconcile"
+    )
+
+    parser.add_argument("-li", "--limit", default = 1,
+        help = "How many results to return"
     )
 
     parser.add_argument("-v", "--verbose", action = "store_true",
@@ -46,7 +50,8 @@ def main(args):
         in_file = args.input,
         out_file = args.output,
         language = args.language,
-        reconciler_type = args.reconciler_type
+        reconciler_type = args.reconciler_type,
+        limit = args.limit
     )
 
     reconciler.reconcile()
