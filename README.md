@@ -34,9 +34,9 @@ This will give you back a filed called `museums.csv` that looks like this:
 
 |query|id|label|description|status|
 |-----|--|-----|-----------|------|
-|Metropolitan Museum of Art|Q160236|Metropolitan Museum of Art|"major art museum in New York City| United States"|ok|
-|Centraal Museum|Q260913|Centraal Museum|"museum in Utrecht| Netherlands"|ok|
-|Jewish Historical Museum|Q702726|Jewish Historical Museum|"Jewish history| culture| and religion museum in Amsterdam| Netherlands"|ok|
+|Metropolitan Museum of Art|Q160236|Metropolitan Museum of Art|major art museum in New York City, United States|ok|
+|Centraal Museum|Q260913|Centraal Museum|museum in Utrecht, Netherlands|ok|
+|Jewish Historical Museum|Q702726|Jewish Historical Museum|Jewish history, culture, and religion museum in Amsterdam, Netherlands|ok|
 
 Note that the `output format` (`-o`) can have any extension that [dataknead](https://github.com/hay/dataknead) supports, so to use `json`, just run the command like this:
 ```bash
