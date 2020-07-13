@@ -52,7 +52,7 @@ class WikidataSearchReconciler:
             query = self.search(line)
 
             if not query:
-                print(f"{line} / {query['status']}")
+                print(f"'{line}' gave an error")
 
                 results.append({
                     "status" : "error",
