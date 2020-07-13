@@ -24,7 +24,7 @@ Centraal Museum
 Jewish Historical Museum
 ```
 
-By default `wbsearch.py` uses the `wdsearch` reconciler. By default it gives you back the very first result from the the `wbsearchentities` Wikidata API. This is the same as what you get when using the autocomplete field on the website. You **need** to specify a language in ISO-code form (e.g. `en`)
+By default `wbsearch.py` uses the `wdsearch` reconciler. This gives you back the very first result from the the `wbsearchentities` Wikidata API. This is the same as what you get when using the autocomplete field on the website. You **need** to specify a language in ISO-code form (e.g. `en`)
 
 ```bash
 poetry run wdreconcile -i museums.txt -o museums.csv -l en
@@ -49,7 +49,13 @@ If you want more than the first result you can use the `-li` (limit) parameter t
 poetry run wdreconcile -i museums.txt -o museums-3.csv -l en -li 3
 ```
 
-And you can also use the [Wikidata reconciler as used by OpenRefine](https://wdreconcile.toolforge.org/), using the `-rt` (reconciler type) parameter:
+You can also use the Wikidata fulltext search, which will give you the same results as the [Special:Search](https://www.wikidata.org/wiki/Special:Search) page. Specify `wdfullsearch` using the `-rt` argument. The `wdfullsearch` reconciler is about half as slow as the default `wdsearch` reconciler.
+
+```bash
+poetry run wdreconcile -i museums.txt -o museums.csv -l en -rt wdfullsearch
+```
+
+And you can also use the [Wikidata reconciler as used by OpenRefine](https://wdreconcile.toolforge.org/), using the `-rt` (reconciler type) parameter.
 
 ```bash
 poetry run wdreconcile -i museums.txt -o museum-openrefine.csv -rt openrefine -l en
@@ -68,8 +74,8 @@ If you add the `-v` (verbose) flag `wdreconcile` will give much more debug infor
 ## All options
 ```bash
 usage: wdreconcile [-h] -i INPUT -o OUTPUT
-                   [-rt {openrefine,wdentity,wdsearch}] -l LANGUAGE
-                   [-li LIMIT] [-v]
+                   [-rt {openrefine,wdentity,wdsearch,wdfullsearch}] -l
+                   LANGUAGE [-li LIMIT] [-v]
 
 Reconcile a list of strings to Wikidata items
 
@@ -79,14 +85,13 @@ optional arguments:
                         Input file (text, line based)
   -o OUTPUT, --output OUTPUT
                         Output file
-  -rt {openrefine,wdentity,wdsearch}, --reconciler_type {openrefine,wdentity,wdsearch}
+  -rt {openrefine,wdentity,wdsearch,wdfullsearch}, --reconciler_type {openrefine,wdentity,wdsearch,wdfullsearch}
                         Reconciler type
   -l LANGUAGE, --language LANGUAGE
                         ISO code of the language you're using to reconcile
   -li LIMIT, --limit LIMIT
                         How many results to return
   -v, --verbose         Display debug information
-
  ```
 
 ## License

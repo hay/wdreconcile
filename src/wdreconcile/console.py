@@ -22,7 +22,7 @@ def get_parser():
     )
 
     parser.add_argument("-rt", "--reconciler_type", default = "wdsearch",
-        choices = ("openrefine", "wdentity", "wdsearch"),
+        choices = ("openrefine", "wdentity", "wdsearch", "wdfullsearch"),
         help = "Reconciler type"
     )
 

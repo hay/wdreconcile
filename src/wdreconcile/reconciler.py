@@ -1,5 +1,6 @@
 from .openrefine import OpenrefineReconciler
 from .wdentity import WikidataEntityReconciler
+from .wdfullsearch import WikidataFullSearchReconciler
 from .wdsearch import WikidataSearchReconciler
 from dataknead import Knead
 from pathlib import Path
@@ -21,6 +22,8 @@ class Reconciler:
             self.reconciler = WikidataSearchReconciler(self.language, self.limit)
         elif reconciler_type == "wdentity":
             self.reconciler = WikidataEntityReconciler(self.language)
+        elif reconciler_type == "wdfullsearch":
+            self.reconciler = WikidataFullSearchReconciler(self.language, self.limit)
 
     def reconcile(self):
         data = Knead(self.in_file, read_as = "txt").data()
