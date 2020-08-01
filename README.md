@@ -68,14 +68,32 @@ Another use of `wdreconcile` is to map back QID's to labels and descriptions usi
 poetry run wdreconcile -i museum-qids.csv -o museum-matched.csv -rt wdentity -l en
 ```
 
+### Lookup QIDs by Wikimedia page title
+You can also go from Wikimedia project pages (like articles on Wikipedia) to QIDs using the `wmentity` reconciler type. This will also check for existence of the page title. This requires the `-s` (site) argument, which is the projectname like `enwiki`, `commonswiki` or `eswikinews`. For a full list of all possible sites see the [API docs](https://www.wikidata.org/w/api.php?action=help&modules=wbgetentities).
+
+```bash
+poetry run wdreconcile -i museums.txt -o museum-articles-qids.csv -rt wmentity -s enwiki -l en -v
+```
+
+## Reconcilers
+Here are all reconcilers in a handy table:
+
+| id | name | usage |
+| -- | ---- | ----- |
+| `openrefine` | OpenRefine reconcilation | This is the [OpenRefine Wikidata reconcilation service](https://wikidata.reconci.link/) |
+| `wdentity` | Wikidata Entity | This will map QID's to their respective labels and descriptions and check for existence |
+| `wdsearch` | Wikidata Search | This uses the first result from the `wbsearchentities` API, which is equivalent to the 'autocomplete' box on the Wikidata site. **This is the default**. |
+| `wdfullsearch` | Wikidata Fullsearch | This uses the regular Wikidata [[search engine](https://www.wikidata.org/wiki/Special:Search)]. About half as slow as `wdsearch` |
+| `wmentity` | Wikimedia Entity | This maps page titles from a Wikimedia project to their respective QIDs. |
+
 ## Troubleshooting
 If you add the `-v` (verbose) flag `wdreconcile` will give much more debug information.
 
 ## All options
 ```bash
 usage: wdreconcile [-h] -i INPUT -o OUTPUT
-                   [-rt {openrefine,wdentity,wdsearch,wdfullsearch}] -l
-                   LANGUAGE [-li LIMIT] [-v]
+                   [-rt {openrefine,wdentity,wdsearch,wdfullsearch,wmentity}]
+                   -l LANGUAGE [-li LIMIT] [-s SITE] [-v]
 
 Reconcile a list of strings to Wikidata items
 
@@ -85,12 +103,13 @@ optional arguments:
                         Input file (text, line based)
   -o OUTPUT, --output OUTPUT
                         Output file
-  -rt {openrefine,wdentity,wdsearch,wdfullsearch}, --reconciler_type {openrefine,wdentity,wdsearch,wdfullsearch}
+  -rt {openrefine,wdentity,wdsearch,wdfullsearch,wmentity}, --reconciler_type {openrefine,wdentity,wdsearch,wdfullsearch,wmentity}
                         Reconciler type
   -l LANGUAGE, --language LANGUAGE
                         ISO code of the language you're using to reconcile
   -li LIMIT, --limit LIMIT
                         How many results to return
+  -s SITE, --site SITE  Site (like enwiki)
   -v, --verbose         Display debug information
  ```
 

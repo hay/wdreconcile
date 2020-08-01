@@ -17,7 +17,7 @@ log = logging.getLogger(__name__)
 class OpenrefineReconciler:
     def __init__(self, language, limit = None):
         self.language = language
-        self.endpoint = f"https://wdreconcile.toolforge.org/{self.language}/api"
+        self.endpoint = f"https://wikidata.reconci.link/{self.language}/api"
         self.limit = limit
         self.FIELDNAMES = ["query", "qid", "score", "name", "match"]
         log.debug(f"Setting limit to {self.limit}")
