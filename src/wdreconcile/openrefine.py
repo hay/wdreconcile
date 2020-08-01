@@ -39,7 +39,7 @@ class OpenrefineReconciler:
     def do_query(self):
         log.debug(f"Doing a request: {self.endpoint}")
         query = 'queries=' + json.dumps(self.query)
-        print(self.endpoint, query)
+        log.debug(self.endpoint, query)
         req = requests.post(self.endpoint, data = query)
         log.debug("Done")
 
@@ -51,6 +51,7 @@ class OpenrefineReconciler:
             return req.json()
 
     def parse_results(self, results):
+        log.debug(results)
         ret = []
 
         for index in results:

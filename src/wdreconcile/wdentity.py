@@ -1,3 +1,5 @@
+# FIXME: this code is pretty identical to wmentity.py, we probably should
+# merge them somehow
 import logging
 import requests
 
@@ -40,7 +42,7 @@ class WikidataEntityReconciler:
             return False
 
         if "labels" in entity and self.language in entity["labels"]:
-            label = entity["labels"][self.language]["value"],
+            label = entity["labels"][self.language]["value"]
         else:
             label = None
 

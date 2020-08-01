@@ -1,6 +1,7 @@
+# FIXME: this code is pretty identical to wdentity.py, we probably should
+# merge them somehow
 import logging
 import requests
-import sys
 
 ENDPOINT = "https://www.wikidata.org/w/api.php"
 log = logging.getLogger(__name__)
@@ -42,7 +43,7 @@ class WikimediaEntityReconciler:
             return False
 
         if "labels" in entity and self.language in entity["labels"]:
-            label = entity["labels"][self.language]["value"],
+            label = entity["labels"][self.language]["value"]
         else:
             label = None
 
