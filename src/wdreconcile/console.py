@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 from . import __version__
 from .reconciler import Reconciler
 from argparse import ArgumentParser
