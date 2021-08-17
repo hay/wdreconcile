@@ -5,9 +5,9 @@ description = "Map strings to Wikidata QID's using various methods"
 authors = ["Hay Kranen <haykranen.nl>"]
 
 [tool.poetry.dependencies]
-python = "~3.7"
+python = "^3.7"
 requests = "^2.24.0"
-dataknead = "^0.3.1"
+dataknead = "^0.4.0"
 
 [tool.poetry.scripts]
 wdreconcile = "wdreconcile.console:console"
